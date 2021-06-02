@@ -1,0 +1,30 @@
+//uart config
+tx pin	PA2
+rx pin	PA3
+RCC_APB1PeriphClockCmd		RCC_APB1Periph_USART2
+baudrate
+USART2
+USART2_IRQn
+//dma config
+	//tx
+RCC_AHB1PeriphClockCmd		RCC_AHB1Periph_DMA1
+DMA_Channel_4
+(uint32_t)&USART2->DR
+(uint32_t)&UART2_DMA_txBuff
+uart2_txbuffSize
+DMA1_Stream6
+DMA1_Stream6_IRQn
+	//rx
+RCC_AHB1PeriphClockCmd		RCC_AHB1Periph_DMA1
+DMA_Channel_4
+(uint32_t)&USART2->DR
+(uint32_t)&UART2_DMA_rxBuff
+uart2_rxbuffSize
+DMA1_Stream5
+DMA1_Stream5_IRQn
+
+//IRQHandler
+	//TX
+DMA_IT_TCIF6
+	//RX
+ DMA_FLAG_DMEIF5 | DMA_FLAG_FEIF5 | DMA_FLAG_HTIF5 | DMA_FLAG_TCIF5 | DMA_FLAG_TEIF5
